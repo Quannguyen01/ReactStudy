@@ -13,7 +13,7 @@ var PromptContainer = React.createClass({
         onUpdateUser={this.handleUpdateUser}
         header={this.props.route.header}
         username={this.state.username}/>
-    );
+    )
   },
 
   getInitialState: function(){
