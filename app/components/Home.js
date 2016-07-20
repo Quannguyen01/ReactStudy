@@ -1,12 +1,13 @@
 var React = require('react');
-var transparentBg = require('../styles').transparentBg;
 var ReactRouter = require('react-router');
 
 var Link = ReactRouter.Link;
 
+var MainContainer = require('../container/MainContainer');
+
 function Home(props){
   return(
-    <div className='jumbotron col-sm-12 text-center' style={transparentBg}>
+    <MainContainer>
       <h1>Github Battle</h1>
       <p className='lead'>Motto</p>
       <Link to='/playerOne'>
@@ -14,7 +15,7 @@ function Home(props){
           Get Started
         </button>
       </Link>
-    </div>
+    </MainContainer>
   );
 }
 
