@@ -1,27 +1,31 @@
-var React = require('react');
-var Results = require('../components/Results');
-var githubHelpers = require('../utils/githubHelpers');
+import React, { Component } from 'react';
+import Results from '../components/Results';
+import {battle} from '../utils/githubHelpers';
 
-var ResultContainer = React.createClass({
+class ResultContainer extends Component {
 
-  getInitialState: function(){
-    return {
+  constructor() {
+    super();
+    this.state = {
       isLoading: true,
       scores: []
+    };
+  }
+
+  async componentDidMount(){
+    try {
+      const scores = await battle(this.props.location.state.playersInfo)
+
+      this.setState({
+        isLoading: false,
+        scores: scores
+      });
+    } catch(err){
+        console.warn('Error in ResultContainer: ', err);
     }
-  },
+  }
 
-  componentDidMount: function(){
-    githubHelpers.battle(this.props.location.state.playersInfo)
-      .then(function(scores){
-        this.setState({
-          isLoading: false,
-          scores: scores
-        });
-      }.bind(this));
-  },
-
-  render: function(){
+  render(){
     return (
       <Results
         isLoading = {this.state.isLoading}
@@ -29,6 +33,6 @@ var ResultContainer = React.createClass({
         scores = {this.state.scores}/>
     )
   }
-});
+}
 
-module.exports = ResultContainer;
+export default ResultContainer;

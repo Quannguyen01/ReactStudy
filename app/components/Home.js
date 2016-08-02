@@ -1,9 +1,7 @@
-var React = require('react');
-var ReactRouter = require('react-router');
+import React from 'react';
+import {Link} from 'react-router';
 
-var Link = ReactRouter.Link;
-
-var MainContainer = require('../container/MainContainer');
+import MainContainer from '../container/MainContainer';
 
 function Home(props){
   return(
@@ -19,4 +17,4 @@ function Home(props){
   );
 }
 
-module.exports = Home;
+export default Home;

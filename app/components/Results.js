@@ -1,13 +1,13 @@
-var React = require('react');
-var PropTypes = React.PropTypes;
-var Link = require('react-router').Link;
+import React, {PropTypes} from 'react'
+import {Link} from 'react-router';
 
-var styles = require('../styles');
+import * as styles from '../styles';
 
-var UserDetails = require('./UserDetails');
-var UserDetailsWrapper  = require('./UserDetailsWrapper');
+import UserDetails from './UserDetails';
+import UserDetailsWrapper from './UserDetailsWrapper';
+import Loading from './Loading';
 
-var MainContainer = require('../container/MainContainer');
+import MainContainer from '../container/MainContainer';
 
 function StartOver(){
   return (
@@ -19,15 +19,15 @@ function StartOver(){
   )
 }
 
-function Results(props){
+function Results({isLoading, playersInfo, scores}){
 
-  if (props.isLoading === true){
+  if (isLoading === true){
     return (
       <Loading />
     )
   }
 
-  if (props.scores[0] === props.scores[1]){
+  if (scores[0] === scores[1]){
     return (
       <MainContainer>
         <h1>It's a tie!</h1>
@@ -36,18 +36,18 @@ function Results(props){
     )
   }
 
-  var winningIndx = props.scores[0] > props.scores[1] ? 0 : 1;
-  var losingIndx = winningIndx === 0 ? 1 : 0;
+  const winningIndx = scores[0] > scores[1] ? 0 : 1;
+  const losingIndx = winningIndx === 0 ? 1 : 0;
 
   return (
     <MainContainer>
       <h1>Results</h1>
       <div className='col-sm-8 col-sm-offset-2'>
         <UserDetailsWrapper header='Winner'>
-          <UserDetails score={props.scores[winningIndx]} info={props.playersInfo[winningIndx]} />
+          <UserDetails score={scores[winningIndx]} info={playersInfo[winningIndx]} />
         </UserDetailsWrapper>
         <UserDetailsWrapper header='Loser'>
-          <UserDetails score={props.scores[losingIndx]} info={props.playersInfo[losingIndx]} />
+          <UserDetails score={scores[losingIndx]} info={playersInfo[losingIndx]} />
         </UserDetailsWrapper>
       </div>
     </MainContainer>
@@ -60,4 +60,4 @@ Results.propTypes = {
   scores: PropTypes.array.isRequired
 }
 
-module.exports = Results;
+export default Results;

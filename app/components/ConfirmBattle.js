@@ -1,38 +1,38 @@
-var React = require('react');
-var PropTypes = React.PropTypes;
-var Link = require('react-router').Link;
+import React, {PropTypes} from 'react';
 
-var styles = require('../styles');
+import {Link} from 'react-router';
 
-var UserDetails = require('./UserDetails');
-var UserDetailsWrapper = require('./UserDetailsWrapper');
-var Loading = require('./Loading');
+import * as styles from '../styles';
 
-var MainContainer = require('../container/MainContainer');
+import UserDetails from './UserDetails';
+import UserDetailsWrapper from './UserDetailsWrapper';
+import Loading from './Loading';
+
+import MainContainer from '../container/MainContainer';
 
 function puke(obj){
   return <pre>{JSON.stringify(obj, null, '')}</pre>
 }
 
-function ConfirmBattle(props){
+function ConfirmBattle({isLoading, playersInfo, onInitBattle}){
   return (
-    props.isLoading === true
+    isLoading === true
     ? <Loading speed={200} text="Waiting"/>
     : <MainContainer>
         <h1>Confirm Players</h1>
         <div className='col-sm-8 col-sm-offset-2'>
           <UserDetailsWrapper header="Player One">
             <UserDetails
-                info={props.playersInfo[0]}/>
+                info={playersInfo[0]}/>
           </UserDetailsWrapper>
           <UserDetailsWrapper header="Player Two">
             <UserDetails
-                info={props.playersInfo[1]}/>
+                info={playersInfo[1]}/>
           </UserDetailsWrapper>
         </div>
         <div className='col-sm-8 col-sm-offset-2'>
           <div className='col-sm-12' style={styles.space}>
-            <button type='button' className='btn btn-lg btn-success' onClick={props.onInitBattle}>
+            <button type='button' className='btn btn-lg btn-success' onClick={onInitBattle}>
               Initiate Battle!
             </button>
           </div>
@@ -52,4 +52,4 @@ ConfirmBattle.propTypes = {
   onInitBattle: PropTypes.func.isRequired
 }
 
-module.exports = ConfirmBattle;
+export default ConfirmBattle;
